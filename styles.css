@@ -8,7 +8,7 @@ body {
     background-size: cover;
     display: flex;
     justify-content: center;
-    align-items: center;
+    height: 100vh;
 }
 
 h1 {
@@ -21,7 +21,7 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+    background: rgba(255, 255, 255, 0.7);
     padding: 20px;
     border-radius: 10px;
     z-index: 1;
