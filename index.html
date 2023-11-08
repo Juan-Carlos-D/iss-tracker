@@ -6,14 +6,35 @@
     <title>International Space Station Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link href="https://fonts.cdnfonts.com/css/nasa" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>    
-    <script src="https://unpkg.com/leaflet.polyline@1.0.0/dist/leaflet.polyline.min.js"></script>
 </head>
 <body>
-    <div class="header-container">
+    <div id="header-container">
         <h1>International Space Station</h1>
     </div>
+
+    <div id="stats-container">
+        <h2>Current ISS Location:</h2>
+        <div class="info-box">
+            <p>Latitude:</p>
+            <span id="iss-lat"></span>
+        </div>
+        <div class="info-box">
+            <p>Longitude:</p>
+            <span id="iss-lon"></span>
+        </div>
+        <div class="info-box">
+            <p>Speed:</p>
+            28000 km/h
+            <span id="iss-speed"></span>
+        </div>
+    </div>
+
+
     <div id="map" class="map-container"></div>
+
+
     
     <script src="index.js"></script>
 </body>

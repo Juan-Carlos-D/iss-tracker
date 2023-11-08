@@ -1,17 +1,18 @@
 var map = L.map('map').setView([34.57, -118.07], 1);
 
-L.tileLayer.wms('http://ows.mundialis.de/services/service?', {
-        layers: 'OSM-Overlay-WMS,TOPO-WMS'
+var USGS_USImagery = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
+	maxZoom: 20,
+	attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
 }).addTo(map);
 
 const homeIcon = L.icon({
-    iconUrl: 'assets/home.png',
+    iconUrl: 'assets/astronaut.png',
     iconSize: [30, 30],
     iconAnchor: [15, 16]
 })
 
 var marker = L.marker([34.57, -118.07], {icon: homeIcon}).addTo(map);
-marker.bindPopup('You are here').openPopup();
+marker.bindPopup('Home').openPopup();
 
 
 var popup = L.popup();
@@ -54,6 +55,10 @@ function getISSLocation() {
 
         // Use the lat and long to update the map or marker 
         updateMap(latitude, longitude); // call the updateMap function
+
+        // Update the HTML elements with the new data
+        document.getElementById('iss-lat').textContent = latitude;
+        document.getElementById('iss-lon').textContent = longitude;
     })
     .catch(error => console.error('Error fetching ISS location data:', error));
 }
