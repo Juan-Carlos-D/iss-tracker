@@ -24,7 +24,7 @@ Built using HTML, CSS, and JavaScript for the frontend, the app integrates the O
   - Dynamic Visualization: JavaScript dynamically renders the retrieved data on the frontend, providing an interactive visualization of the ISS's path and updating its position.
   - Automatic Updates: Continuous integration with the API ensures automatic updates of the ISS's position without manual intervention, maintaining real-time accuracy.
 
-#Achievements
+# Achievements
 The ISS Tracker, combining frontend technologies with API integration, delivers a user-friendly experience for effortlessly tracking the ISS's journey in real-time, providing users with immersive and accurate information about the ISS's current position as it orbits the Earth.
 
 # Resources: 
