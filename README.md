@@ -1,6 +1,6 @@
 # International Space Station Tracker
 
-#Overview
+# Overview
 The International Space Station (ISS) Tracker is a web application developed using HTML, CSS, and JavaScript, providing users with real-time information about the current position of the ISS as it orbits the Earth. By integrating the Open Notify API, this project significantly enhances the accuracy and reliability of ISS positional data retrieval.
 
 # Project Highlights
