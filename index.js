@@ -25,8 +25,9 @@ function onMapClick(e) {
 
 map.on('click', onMapClick);
 
-// API for ISS location
+// Open Notify API endpoint for ISS current location
 const issApiUrl = 'https://api.wheretheiss.at/v1/satellites/25544';
+
 
 const issIcon = L.icon({
     iconUrl: 'assets/space-station-3.png',
@@ -38,44 +39,15 @@ const issIcon = L.icon({
 var issMarker = L.marker([0, 0], { icon: issIcon }).addTo(map);
 issMarker.bindPopup('ISS is here!').openPopup();
 
-// Function to update ISS marker position
+// Function to update the ISS marker's position
 function updateMap(latitude, longitude) {
     issMarker.setLatLng([latitude, longitude]).update();
 }
 
-// Fetch ISS location data and update UI
-function getISSLocation() {
-    fetch(issApiUrl)
-        .then(response => {
-            const contentType = response.headers.get("content-type");
-            if (!contentType || !contentType.includes("application/json")) {
-                throw new Error("Received non-JSON response, possible API issue.");
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('ISS Data:', data);
-            const latitude = data.latitude;
-            const longitude = data.longitude;
-
-            updateMap(latitude, longitude);
-
-            document.getElementById('iss-lat').textContent = latitude.toFixed(5);
-            document.getElementById('iss-lon').textContent = longitude.toFixed(5);
-        })
-        .catch(error => console.error('Error fetching ISS location data:', error));
-}
-
-// Fetch data at intervals
-setInterval(getISSLocation, 2000);
-
-// Initial call to update ISS location
-getISSLocation();
-
-// Store ISS path coordinates
+// Create an array to store the ISS path coordinates
 var issPathCoordinates = [];
+var issPath = L.polyline(issPathCoordinates, { color: 'red' }).addTo(map);
 
-// Function to update ISS location and path
 function updateISSLocation() {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
@@ -106,12 +78,10 @@ function updateISSLocation() {
         })
         .catch(error => console.error('Error fetching ISS location data:', error.message));
 }
-// Create a polyline for ISS path
-var issPath = L.polyline(issPathCoordinates, { color: 'red' }).addTo(map);
 
-// Fetch ISS location data and update at intervals
+
+// Fetch ISS location data at regular intervals (every 2 seconds)
 setInterval(updateISSLocation, 2000);
 
-// Initial call to update ISS location
+// Initial call to get ISS location
 updateISSLocation();
-
