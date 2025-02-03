@@ -27,7 +27,7 @@ function onMapClick(e) {
 map.on('click', onMapClick);
 
 // Open Notify API endpoint for ISS current location
-const issApiUrl = 'http://api.open-notify.org/iss-now.json';
+const issApiUrl = 'https://corsproxy.io/?https://api.open-notify.org/iss-now.json';
 
 const issIcon = L.icon({
     iconUrl: 'assets/space-station-3.png',
