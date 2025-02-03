@@ -77,34 +77,35 @@ var issPathCoordinates = [];
 
 // Function to update ISS location and path
 function updateISSLocation() {
-    fetch(issApiUrl)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
+    fetch(issApiUrl, { signal: controller.signal })
         .then(response => {
-            const contentType = response.headers.get("content-type");
-            if (!contentType || !contentType.includes("application/json")) {
-                throw new Error("Received non-JSON response, possible API issue.");
-            }
+            clearTimeout(timeoutId);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             return response.json();
         })
         .then(data => {
-            console.log('ISS Data:', data);
+            console.log(data);
             const latitude = data.latitude;
             const longitude = data.longitude;
+            const speed = data.velocity; // Extract ISS speed in km/h
 
+            // Update the ISS marker position
             updateMap(latitude, longitude);
 
-            // Add new coordinate to the path
+            // Add new coordinates to the path and update it
             issPathCoordinates.push([latitude, longitude]);
-
-            // Update the ISS path
             issPath.setLatLngs(issPathCoordinates);
 
-            // Update the HTML elements with the new coordinates
+            // Update the HTML elements with new data
             document.getElementById('iss-lat').textContent = latitude.toFixed(5);
             document.getElementById('iss-lon').textContent = longitude.toFixed(5);
+            document.getElementById('iss-speed').textContent = speed.toFixed(2) + " km/h"; // Update speed
         })
-        .catch(error => console.error('Error fetching ISS location data:', error));
+        .catch(error => console.error('Error fetching ISS location data:', error.message));
 }
-
 // Create a polyline for ISS path
 var issPath = L.polyline(issPathCoordinates, { color: 'red' }).addTo(map);
 
